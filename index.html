@@ -749,6 +749,146 @@
     from { width: 100%; }
     to   { width: 0%; }
 }
+
+/* ─── Referral codes button + popup ───────────────────────── */
+.referral-wrap {
+    display: flex;
+    justify-content: center;
+    margin: -6px 0 22px;
+}
+.referral-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: rgba(242, 200, 107, 0.08);
+    color: #f6d88e;
+    border: 1px solid rgba(242, 200, 107, 0.35);
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: inset 0 0 10px rgba(242, 200, 107, 0.08), 0 0 14px rgba(242, 200, 107, 0.08);
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+.referral-btn:hover {
+    background: rgba(242, 200, 107, 0.16);
+    border-color: rgba(242, 200, 107, 0.6);
+    transform: translateY(-1px);
+}
+.referral-btn strong {
+    font-family: 'Cinzel', serif;
+    color: #f2c86b;
+    font-weight: 600;
+}
+.referral-dialog {
+    width: min(480px, calc(100vw - 32px));
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding: 22px 24px 20px;
+    box-sizing: border-box;
+    background: rgba(24, 16, 36, 0.97);
+    color: #d8cfe8;
+    border: 1px solid rgba(242, 200, 107, 0.35);
+    border-left: 3px solid rgba(242, 200, 107, 0.55);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 14px rgba(242, 167, 155, 0.14);
+}
+.referral-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+.referral-dialog h2 {
+    font-family: 'Cinzel', serif;
+    color: #f2c86b;
+    font-weight: 500;
+    font-size: 21px;
+    margin: 0 0 12px;
+    padding-bottom: 10px;
+    padding-right: 30px;
+    border-bottom: 1px solid rgba(242, 200, 107, 0.14);
+}
+.referral-dialog p,
+.referral-dialog li {
+    line-height: 1.7;
+    font-size: 14px;
+}
+.referral-dialog p { margin: 0 0 10px; }
+.referral-dialog ul { margin: 0 0 12px; padding-left: 20px; }
+.referral-dialog li::marker { color: #f2c86b; }
+.referral-dialog .ref-dim { color: #a99aba; font-size: 13px; }
+.referral-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(206, 188, 235, 0.25);
+    background: rgba(39, 26, 56, 0.9);
+    color: #a99aba;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+.referral-close:hover { color: #ebe4f5; border-color: rgba(206, 188, 235, 0.5); }
+.referral-code-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 12px;
+    padding: 10px 12px;
+    background: rgba(242, 200, 107, 0.06);
+    border: 1px solid rgba(242, 200, 107, 0.3);
+    border-radius: 12px;
+}
+.referral-code-label { font-size: 12px; color: #a99aba; }
+.referral-code {
+    font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 19px;
+    letter-spacing: 0.08em;
+    color: #fce9aa;
+    user-select: all;
+    -webkit-user-select: all;
+}
+.referral-copy {
+    margin-left: auto;
+    background: rgba(242, 200, 107, 0.12);
+    border: 1px solid rgba(242, 200, 107, 0.4);
+    color: #f6d88e;
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.referral-copy:hover { background: rgba(242, 200, 107, 0.22); }
+.referral-thanks { color: #f6d88e; font-style: italic; }
+
+.referral-dialog .ref-info-btn,
+.referral-dialog .ref-back {
+    background: transparent;
+    border: 1px solid rgba(201, 169, 245, 0.35);
+    color: #d8b4f8;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.referral-dialog .ref-info-btn { margin: 0 0 14px; }
+.referral-dialog .ref-back { margin: 0 0 12px; }
+.referral-dialog .ref-info-btn:hover,
+.referral-dialog .ref-back:hover {
+    background: rgba(201, 169, 245, 0.10);
+    border-color: rgba(201, 169, 245, 0.6);
+}
+.referral-dialog [data-ref-view="info"] p strong:first-child { color: #f6d88e; }
+.referral-dialog .ref-link { color: #f2c86b; text-decoration: underline; text-underline-offset: 3px; }
 </style>
 </head>
 
@@ -921,6 +1061,95 @@
               </div>
           </div>
       </div>
+      <div class="referral-wrap">
+          <button type="button" class="referral-btn" id="referralBtn"><strong>Referral Codes:</strong> new players click here</button>
+      </div>
+      <dialog class="referral-dialog" id="referralDialog" aria-labelledby="referralTitle">
+          <button type="button" class="referral-close" id="referralClose" aria-label="Close">&#215;</button>
+          <div class="ref-view" data-ref-view="main">
+              <h2 id="referralTitle">Referral Codes</h2>
+              <p>New to Harpagia? Entering a referral code gets you these rewards right away:</p>
+              <ul>
+                  <li>5 Lesser Experience Scrolls</li>
+                  <li>5 Lesser Scrolls of Haste</li>
+                  <li>5 Rune Chest Keys</li>
+                  <li>1 Standard Card Pack + 1 Rare Card Pack</li>
+                  <li>2,500 Card Enhancement XP</li>
+              </ul>
+              <button type="button" class="ref-info-btn" data-ref-show="info">What are these rewards?</button>
+              <p>To enter a code, open the menu and go to <strong>Social &#8594; Referrals</strong>, then paste it under "Enter a Referral Code". You need to be signed in and have cloud saved at least once first.</p>
+              <p class="ref-dim">Codes can only be entered within 31 days of creating your account, or while you're level 1,000 or below.</p>
+              <div class="referral-code-row">
+                  <div>
+                      <div class="referral-code-label">Kipper(BienChien)'s code</div>
+                      <div class="referral-code" id="referralCode">u5MJWMzR</div>
+                  </div>
+                  <button type="button" class="referral-copy" id="referralCopy">Copy</button>
+              </div>
+              <p class="referral-thanks">If you think this Harpagia Guide has been helpful to you, consider using my referral code. It's a nice early boost, as you get every reward above and the maker of this guide gets a little thank-you. :)</p>
+          </div>
+          <div class="ref-view" data-ref-view="info" hidden>
+              <button type="button" class="ref-back" data-ref-show="main">&#8592; Back</button>
+              <h2>What are these rewards?</h2>
+              <p><strong>Lesser Experience Scrolls (x5):</strong> Each one grants 50,000 XP in any skill you choose (needs level 25). Use them from <strong>Items &#8594; Scrolls</strong>. Best used early on in a skill you don't have many levels in yet, to help get it going quicker.</p>
+              <p><strong>Lesser Scrolls of Haste (x5):</strong> Each one either cuts 10 minutes off an Expedition or Research, or adds 10 minutes of time to your Auracle. Also used from <strong>Items &#8594; Scrolls</strong>. Recommended for a bit of extra Auracle time, or save them for Expeditions.</p>
+              <p><strong>Rune Chest Keys (x5):</strong> Used in <strong>Treasure Room &#8594; Rune Chest Room</strong> to open rune chests, which give equippable runes.</p>
+              <p><strong>Standard + Rare Card Pack:</strong> These open automatically and grant you some monster cards. For more on how monster cards work, check out the <a href="#section16" class="ref-link" id="referralCardsLink">Monster Cards section</a>.</p>
+              <p><strong>2,500 Card Enhancement XP:</strong> Used to upgrade the cards you just received.</p>
+          </div>
+      </dialog>
+      <script>
+      (function () {
+          var dlg = document.getElementById('referralDialog');
+          var copyBtn = document.getElementById('referralCopy');
+          var code = document.getElementById('referralCode').textContent.trim();
+          document.getElementById('referralBtn').addEventListener('click', function () {
+              if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+          });
+          function closeDlg() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+          document.getElementById('referralClose').addEventListener('click', closeDlg);
+          dlg.querySelectorAll('[data-ref-show]').forEach(function (b) {
+              b.addEventListener('click', function () { showView(b.getAttribute('data-ref-show')); });
+          });
+          function showView(name) {
+              dlg.querySelectorAll('[data-ref-view]').forEach(function (v) { v.hidden = v.getAttribute('data-ref-view') !== name; });
+              dlg.scrollTop = 0;
+          }
+          dlg.addEventListener('close', function () { showView('main'); });
+          // Used by the "Back to where you were" popup after jumping out via the Monster Cards link
+          window.reopenReferral = function (view) {
+              if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+              showView(view || 'main');
+          };
+          document.getElementById('referralCardsLink').addEventListener('click', function (e) {
+              e.preventDefault();
+              closeDlg();
+              openSectionAndHighlight('section16', 'monster-cards-h2');
+          });
+          dlg.addEventListener('click', function (e) {
+              if (e.target !== dlg) return;
+              var r = dlg.getBoundingClientRect();
+              if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) closeDlg();
+          });
+          function copied() {
+              copyBtn.textContent = 'Copied!';
+              setTimeout(function () { copyBtn.textContent = 'Copy'; }, 1600);
+          }
+          function fallbackCopy() {
+              var t = document.createElement('textarea');
+              t.value = code; t.setAttribute('readonly', '');
+              t.style.position = 'fixed'; t.style.opacity = '0';
+              dlg.appendChild(t); t.select();
+              try { document.execCommand('copy'); copied(); } catch (e) {}
+              dlg.removeChild(t);
+          }
+          copyBtn.addEventListener('click', function () {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                  navigator.clipboard.writeText(code).then(copied, fallbackCopy);
+              } else { fallbackCopy(); }
+          });
+      })();
+      </script>
       <div id="section1" class="section collapsed" data-teaser="An opinionated guide to Harpagia — click any section title or sidebar tab to expand it.">
           <div class="section-header section-title-wrap">
               <div class="section-icon-wrap">
@@ -1973,7 +2202,7 @@
     </strong>
 </p>
 <ul>
-    <li>Overdrive/Champion/Concentration/Counter/Paralyze/Yoink/Ultimate Power/Triple Strike ability rotation (If you're using defensive build instead of hardcore DPS build, it's important to use this alternate ability rotation instead, to minimize getting caught in a Yoink-death loop: Peon/Champion/Concentration/Yoink/Triple Strike/Rage/Cleanse/Ultimate Power).</li>
+    <li>Overdrive/Champion/Concentration/Ultimate Power/Paralyze/Yoink/Counter/Triple Strike ability rotation (If you're using defensive build instead of hardcore DPS build, it's important to use this alternate ability rotation instead, to minimize getting caught in a Yoink-death loop: Peon/Champion/Concentration/Yoink/Triple Strike/Rage/Cleanse/Ultimate Power).</li>
     <li>Power / Speed Ring</li>
     <li>Power Emblem</li>
     <li>Shark Tooth Trinket</li>
@@ -1981,7 +2210,7 @@
     <li>Crit/HP Sigil</li>
     <li>Elemental Blade/Sunforge</li>
     <li>Ability Master/Adrenaline(Bloodlust)/Tenacity/Jugg Soulstone, 3p glyphs.</li>
-    <li>Slayer/Sword/Power Runes, HP/Sustenance/Defence Runes, Paralyze/Combo/Counter Runes, Paralyze Enhance/Frenzy/Shield Pierce Runes. Note: Paralyze/Enhance might seem weird; but by using the aforementioned ability rotation, granting 8x rounds in a row of a paralyzed Solaris, gives a massive boost to DPS. Make sure you use shield pierce too, since solaris ups its shield every 3 hits, and that's free damage bonus anytime it does.</li>
+    <li>Slayer/Sword/Power Runes, HP/Sustenance/Defence Runes, Paralyze/Combo/Counter Runes, Paralyze Enhance/Frenzy/Shield Pierce Runes. Note: Paralyze/Enhance might seem weird; but by using the aforementioned ability rotation, granting 5x rounds in a row of a paralyzed Solaris, gives a massive boost to DPS. Make sure you use shield pierce too, since solaris ups its shield every 3 hits, and that's free damage bonus anytime it does.</li>
     <li>HP Card Set</li>
     <li>100p/40s spec</li>
 </ul>
@@ -3595,7 +3824,18 @@
             var tgt = evt && evt.target;
             link = tgt && tgt.closest ? tgt.closest("a") : null;
         } catch (e) { link = null; }
-        saved = {
+        // Jumps from inside the referral popup: the link is hidden once the popup closes,
+        // so return by scroll position and reopen the popup on the view it came from.
+        var fromDialog = link ? link.closest("dialog") : null;
+        if (fromDialog) {
+            var view = link.closest("[data-ref-view]");
+            saved = {
+                el: null,
+                vpOffset: 0,
+                scrollY: window.scrollY || document.documentElement.scrollTop || 0,
+                reopenView: view ? view.getAttribute("data-ref-view") : "main"
+            };
+        } else saved = {
             el: link && document.contains(link) ? link : null,
             vpOffset: link ? link.getBoundingClientRect().top : 0,
             scrollY: window.scrollY || document.documentElement.scrollTop || 0
@@ -3621,6 +3861,9 @@
         }
         hideReturnPop();
         window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        if (saved.reopenView && typeof window.reopenReferral === "function") {
+            window.reopenReferral(saved.reopenView);
+        }
         if (saved.el && document.contains(saved.el)) {
             // Re-flash the link that was clicked, same as jump-target headings
             var el = saved.el;
